@@ -1,0 +1,142 @@
+#include "UsersInput.h"
+
+
+int chouseStream() {
+	std::cout << "1. База данных" << std::endl;
+	std::cout << "2. Консоль" << std::endl;
+	std::cout << "0. Отмена" << std::endl;
+	return processingInput(0, 2);
+}
+
+//получение имени входного файлa
+//ввод 0 означает отказ от ввода данных из файла.
+bool processInputNameOfInputFile(std::string& filename)
+{
+	std::ifstream file;
+	//получение названия файла
+	bool isCorrect;
+	std::cout << "Введите название файла (с расширением): ";
+	std::cin >> filename;
+	isCorrect = checkFilename(filename);
+	if (isCorrect)
+		file.open(filename);
+	while (!file.is_open() && filename[0] != '0')
+	{
+		
+		if (isCorrect)
+			Logger::printWarning("Такого файла не существует.");
+		std::cout << "Введите название повторно (с расширением): ";
+		std::cin >> filename;
+		isCorrect = checkFilename(filename);
+		if (isCorrect)
+			file.open(filename);
+	}
+	file.close();
+	if (filename[0] != '0') {
+		Logger::printMessage("Файл успешно открыт");
+		return true;
+	}
+	else {
+		Logger::printMessage("Вы отказались от ввода данных из файла");
+		return false;
+	}
+		
+}
+//получение имени выходного файлa
+//ввод 0 означает отказ от ввода данных из файла.
+bool processInputNameOfOutputFile(std::string& filename)
+{
+	//получение названия файла
+	bool isCorrect;
+	std::cout << "Введите название файла (с расширением): ";
+	std::cin >> filename;
+	isCorrect = checkFilename(filename);
+	while (!isCorrect && filename[0] != '0') {
+		std::cout << "Введите название повторно (с расширением): ";
+		std::cin >> filename;
+		isCorrect = checkFilename(filename);
+	}
+	if (filename[0] != '0') {
+		Logger::printMessage("Файл успешно открыт");
+		return true;
+	}
+	else {
+		Logger::printMessage("Вы отказались от ввода данных из файла");
+		return false;
+	}
+}
+//проверка корректности имени файла
+bool checkFilename(std::string file)
+{
+	if (file.size() < 4 && file[0] != '0') {
+		Logger::printWarning("Имя файла слишком короткое.");
+		return false;
+	}
+	if ((((file[0] == 'c') || (file[0] == 'C')) && ((file[1] == 'o') || (file[1] == 'O'))
+		&& ((file[2] == 'n') || (file[2] == 'N')) && ((file[3] == '.') || (file[3] == '\0')))
+		|| (((file[0] == 'a') || (file[0] == 'A')) && ((file[1] == 'u') || (file[1] == 'U'))
+			&& ((file[2] == 'x') || (file[2] == 'X')) && ((file[3] == '.') || (file[3] == '\0')))
+		|| (((file[0] == 'p') || (file[0] == 'P')) && ((file[1] == 'r') || (file[1] == 'R'))
+			&& ((file[2] == 'n') || (file[2] == 'N')) && ((file[3] == '.') || (file[3] == '\0')))
+		|| (((file[0] == 'c') || (file[0] == 'C')) && ((file[1] == 'o') || (file[1] == 'O'))
+			&& ((file[2] == 'm') || (file[2] == 'M')) && ((file[3] == '1') || (file[3] == '2')
+				|| (file[3] == '3') || (file[3] == '4') || (file[3] == '5') || (file[3] == '6')
+				|| (file[3] == '7') || (file[3] == '8') || (file[3] == '9')) && ((file[4] == '.')
+					|| (file[4] == '\0'))) || (((file[0] == 'l') || (file[0] == 'L')) && ((file[1] == 'p')
+						|| (file[1] == 'P')) && ((file[2] == 't') || (file[2] == 'T')) && ((file[3] == '1')
+							|| (file[3] == '2') || (file[3] == '3') || (file[3] == '4') || (file[3] == '5')
+							|| (file[3] == '6') || (file[3] == '7') || (file[3] == '8') || (file[3] == '9'))
+						&& ((file[4] == '.') || (file[4] == '\0'))))
+	{
+		std::cin.ignore(INT_MAX, '\n');
+		Logger::printWarning("Данное имя файла используется Windows.");
+		return false;
+	}
+	int i = file.size();
+	if ((file[i] == '\0') && (file[i - 1] == 't') && (file[i - 2] == 'x') && (file[i - 3] == 't') && (file[i - 4] == '.') ||
+		(file[i] == '\0') && (file[i - 1] == 'v') && (file[i - 2] == 's') && (file[i - 3] == 'c') && (file[i - 4] == '.') ||
+		(file[i] == '\0') && (file[i - 1] == 't') && (file[i - 2] == 'a') && (file[i - 3] == 'd') && (file[i - 4] == '.'))
+		return true;
+	else
+	{
+		if (file[i - 1] != '0')
+			Logger::printWarning("Файл должен иметь формат .txt или .csv или .dat");
+		return false;
+	}
+}
+
+void inputData(std::string help, std::string& data) {
+	std::cout << help;
+	getline(std::cin, data);
+	while (data.size() < 1) {
+		Logger::printWarning("Строка не должна быть пустой.");
+		std::cout << "Введите повторно: ";
+		getline(std::cin, data);
+	}
+}
+
+bool isNumeric(const char& ch) {
+	return ch >= '0' && ch <= '9';
+}
+
+bool checkTime(const std::string& s) {
+	if (s.size() != 5)
+		return false;
+	int intTime = ((s[0] - '0') * 10 + (s[1] - '0')) * 60 + (s[0] - '0') * 10 + (s[0] - '0');
+	return intTime > 0 && intTime < 1439;
+}
+
+void inputTimeDeparture(std::string help, std::string& data) {
+	std::cout << help;
+	while (true)
+	{
+		getline(std::cin, data);
+		if (data.size() < 5 || !isNumeric(data[0]) || !isNumeric(data[1])
+			|| !isNumeric(data[3]) || !isNumeric(data[4]) || !checkTime(data)) {
+			Logger::printWarning("Неверный ввод.");
+			std::cout << "Введите повторно: ";
+		}
+		else
+			break;
+	}
+}

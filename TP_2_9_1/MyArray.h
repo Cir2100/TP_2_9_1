@@ -17,6 +17,7 @@ public:
 	void add(MyArray<T>& _array);
 	void del(int index);
 	void clear();
+	void sort();
 	const int getSize() { return size; }
 	T& operator[](int);
 	MyArray<T>& operator=(const MyArray<T>& myArray);
@@ -95,6 +96,14 @@ void MyArray<T>::del(int index)
 		size--;
 		data = new T[0];
 	}
+}
+
+template <class T>
+void MyArray<T>::sort() {
+	for (int i = 1; i < size; i++)
+		for (int j = 0; j < size - i; j++)
+			if (data[j] > data[j + 1])
+				std::swap(data[j], data[j + 1]);
 }
 
 template <class T>
