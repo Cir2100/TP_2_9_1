@@ -16,6 +16,7 @@ void deleteObject(MyArray<Train>& trains);
 void print(MyArray<Train>& trains);
 void searchTrain(MyArray<Train>& trains);
 void poezd();
+void poezd2();
 
 
 int main() {
@@ -26,7 +27,7 @@ int main() {
 	bool isExit = false;
 	while (!isExit) {
 		printMenu();
-		int method = processingInput(0, 7);
+		int method = processingInput(0, 8);
 		switch (method)
 		{
 		case 1:
@@ -51,6 +52,9 @@ int main() {
 		case 7:
 			poezd();
 			break;
+		case 8:
+			poezd2();
+			break;
 		case 0:
 
 			isExit = true;
@@ -68,6 +72,7 @@ void printMenu() {
 	cout << "5. Отсортировать поезда" << endl;
 	cout << "6. Поиск поезда по номмеру" << endl;
 	cout << "7. Посмотреть на поезд" << endl;
+	cout << "8. Посмотреть на поезд2" << endl;
 	cout << "0. Выход" << endl;
 	cout << "Выберете пункт меню: ";
 }
@@ -163,4 +168,42 @@ void poezd() {
 		cleardevice();
 	}
 	closegraph();
+}
+
+void poezd2() {
+	int gm, gd = DETECT;
+	char a[2] = " ";
+	initgraph(&gd, &gm, a);
+	int xStart = 800, yStart = 100;
+	int speed = 10;
+
+	mciSendString(L"open \"D:\\Projects\\VS\\TP_3_kurs\\TP_2_9_1\\TP_2_9_1\\Du.mp3\" type mpegvideo alias song", NULL, 0, NULL);
+	mciSendString(L"play song from 0", NULL, 0, NULL);
+	delay(1000);
+	while (xStart > -75) {
+		//кабина
+		rectangle(xStart, yStart, xStart + 100, yStart + 200);
+		//окно
+		rectangle(xStart + 25, yStart + 25, xStart + 75, yStart + 75);
+		line(xStart + 25, yStart + 50, xStart + 75, yStart + 50);
+		line(xStart + 50, yStart + 25, xStart + 50, yStart + 75);
+		//ручка
+		rectangle(xStart + 20, yStart + 100, xStart + 50, yStart + 105);
+		//двигатель
+		rectangle(xStart - 200, yStart + 100, xStart, yStart + 200);
+		//труба
+		rectangle(xStart - 150, yStart + 50, xStart - 130, yStart + 100);
+		//колеса
+		circle(xStart - 130, yStart + 200, 50);
+
+		circle(xStart + 30, yStart + 200, 50);
+
+		xStart -= speed;
+		delay(10);
+		cleardevice();
+		if (xStart < -10)
+			xStart = 800;
+	}
+	closegraph();
+	mciSendString(L"close song", NULL, 0, NULL);
 }
