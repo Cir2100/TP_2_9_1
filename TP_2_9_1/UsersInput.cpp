@@ -1,13 +1,5 @@
 #include "UsersInput.h"
 
-
-int chouseStream() {
-	std::cout << "1. База данных" << std::endl;
-	std::cout << "2. Консоль" << std::endl;
-	std::cout << "0. Отмена" << std::endl;
-	return processingInput(0, 2);
-}
-
 //получение имени входного файлa
 //ввод 0 означает отказ от ввода данных из файла.
 bool processInputNameOfInputFile(std::string& filename)

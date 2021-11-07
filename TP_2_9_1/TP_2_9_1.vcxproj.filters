@@ -30,6 +30,9 @@
     <ClInclude Include="UsersInput.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="graphics.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Train.cpp">
@@ -44,5 +47,14 @@
     <ClCompile Include="UsersInput.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="bgi.lib">
+      <Filter>Файлы заголовков</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Du.mp3" />
+    <Media Include="Poezd.mp3" />
   </ItemGroup>
 </Project>

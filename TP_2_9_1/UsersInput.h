@@ -10,7 +10,6 @@ template <typename T>
 T processingInput(T minInput, T maxInput);
 template <typename T>
 void inputData(std::string help, T& data, T minValue, T maxValue);
-int chouseStream();
 bool processInputNameOfInputFile(std::string& filename);
 bool processInputNameOfOutputFile(std::string& filename);
 bool checkFilename(std::string file);

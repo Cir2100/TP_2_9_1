@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="graphics.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MyArray.h" />
     <ClInclude Include="Strings.h" />
@@ -150,6 +151,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Train.cpp" />
     <ClCompile Include="UsersInput.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="bgi.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Du.mp3" />
+    <Media Include="Poezd.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
