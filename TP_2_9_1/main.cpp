@@ -69,7 +69,7 @@ void printMenu() {
 void addObject(MyArray<Train>& trains) {
 	Train train;
 	train.inputFromConsole();
-	trains.add(train);
+	trains += train;
 	Logger::printMessage("Объект успешно добавлен");
 }
 
@@ -88,7 +88,7 @@ void deleteObject(MyArray<Train>& trains) {
 	if (trains.getSize() > 0) {
 		print(trains);
 		cout << "Введите номер поезда для удаления: ";
-		trains.del(processingInput(1, trains.getSize()) - 1);
+		trains -= processingInput(1, trains.getSize()) - 1;
 		Logger::printMessage("Объект успешно удален");
 	}
 	else
@@ -140,7 +140,7 @@ void startInput(MyArray<Train>& trains) {
 		for (int i = 0; i < size; i++) {
 			Train train;
 			train.inputFromConsole();
-			trains.add(train);
+			trains += train;
 		}
 	}
 }
